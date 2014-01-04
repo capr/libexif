@@ -1,6 +1,7 @@
 ---
-project: libexif
-tagline: libexif ffi binding
+project:     libexif
+tagline:     libexif ffi binding
+category:    Raster Images
 ---
 
 v1.0 | libexif 0.6.21 | LuaJIT 2
