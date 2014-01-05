@@ -4,8 +4,6 @@ tagline:     libexif ffi binding
 category:    Raster Images
 ---
 
-v1.0 | libexif 0.6.21 | LuaJIT 2
-
 ## `local libexif = require'libexif'`
 
 A ffi binding of [libexif][libexif site], the library for reading and writing EXIF information from/to image files.
