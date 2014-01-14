@@ -1,3 +1,3 @@
-gcc -s -O3 -shared -static-libgcc -o ../../bin/mingw32/exif.dll -g -Wall libexif/*.c libexif/*/*.c -I. -D__WATCOMC__
+gcc $CFLAGS libexif/*.c libexif/*/*.c -shared -o ../../bin/mingw32/exif.dll -Wall -I. -D__WATCOMC__
 
 #cd ../.. && bin/luajit libexif.lua
