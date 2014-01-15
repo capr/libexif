@@ -1,7 +1,6 @@
 ---
 project:     libexif
 tagline:     libexif ffi binding
-category:    Raster Images
 ---
 
 ## `local libexif = require'libexif'`
