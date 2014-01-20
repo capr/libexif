@@ -1,6 +1,6 @@
 ---
-project:     libexif
-tagline:     libexif ffi binding
+project: libexif
+tagline: EXIF reader & writer
 ---
 
 ## `local libexif = require'libexif'`
