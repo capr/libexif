@@ -1,2 +1,1 @@
-gcc -O2 -s -static-libgcc -fPIC libexif/*.c libexif/*/*.c -shared -o ../../bin/linux64/libexif.so -I. \
-    -DHAVE_GETTEXT=1 -DGETTEXT_PACKAGE=\"libexif\" -DLOCALEDIR=\"UTF-8\"
+P=linux64 C=-fPIC L="-s -static-libgcc" D=libexif.so A=libexif.a ./build.sh

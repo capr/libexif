@@ -1,2 +1,2 @@
-gcc -arch i386 -O2 libexif/*.c libexif/*/*.c -shared -install_name @loader_path/libexif.dylib -o ../../bin/osx32/libexif.dylib -I. \
-    -DHAVE_GETTEXT=1 -DGETTEXT_PACKAGE=\"libexif\" -DLOCALEDIR=\"UTF-8\"
+P=osx32 C="-arch i386" L="-arch i386 -install_name @loader_path/libexif.dylib" \
+	D=libexif.dylib A=libexif.a ./build.sh
