@@ -1,5 +1,4 @@
 ---
-project: libexif
 tagline: EXIF reader & writer
 ---
 
