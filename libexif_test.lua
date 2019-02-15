@@ -1,7 +1,8 @@
 local exif = require"libexif"
-local ExifData = exif.openfile('media/jpeg/autumn-wallpaper.jpg')
+local glue = require"glue"
+local exif_data = exif.read(glue.readfile('media/jpeg/autumn-wallpaper.jpg'))
 
-local CompareTable = {
+local compare_table = {
 	ColorSpace = "sRGB",
 	DateTime = "2007:12:18 07:24:35",
 	ExifVersion = "Exif Version 2.1",
@@ -15,29 +16,32 @@ local CompareTable = {
 	YResolution = "72"
 }
 
-local CompareCheck = {}
+local compare_check = {}
 
-for k, v in pairs(CompareTable) do
-	CompareCheck[k] = false
+for k, v in pairs(compare_table) do
+	compare_check[k] = false
 end
 
-if ExifData ~= nil then
-	local tags = ExifData:GetTags()
+if exif_data ~= nil then
+	local tags = exif_data:get_tags()
+	local ok = true
 
 	for k, v in pairs(tags) do
-		if CompareTable[k] == v then
-			CompareCheck[k] = true
-		elseif CompareTable[k] == nil then
+		if compare_table[k] == v then
+			compare_check[k] = true
+		elseif compare_table[k] == nil then
 			print("[libexif] Image gets new unlisted tag!", k, v)
+			ok = false
 		else
-			CompareCheck[k] = true
+			compare_check[k] = true
 			print("[libexif] Image gets new value for tag!", k, v)
+			ok = false
 		end
 	end
 
 	local all = true
 
-	for k, v in pairs(CompareCheck) do
+	for k, v in pairs(compare_check) do
 		if v == false then
 			print("[libexif] Image lost EXIF tag!", k)
 			all = false
@@ -47,6 +51,12 @@ if ExifData ~= nil then
 	if all then
 		print("[libexif] All tags were found.")
 	end
+
+	if ok then
+		print("[libexif] OK")
+	else
+		print("[libexif] ERROR")
+	end
 else
-	print("[libexif] EXIF parsing fails")
+	print("[libexif] EXIF parsing failed!")
 end

@@ -11,28 +11,28 @@ EXIF information from/to image files.
 
 ------------------------------------ -----------------------------------------
 `exif.C`                             the libexif ffi clib object/namespace
-`exif.openfile(path) -> ExifData`    open file and get EXIF information
-`ExifData:GetTags() -> table`        return table of written tags
-`ExifData:free()`                    free the ExifData
-`ExifData.raw -> cdata`              return cdata of ExifData
+`exif.read_file(path) -> exit_data`    open file and get EXIF information
+`exit_data:get_tags() -> table`        return table of written tags
+`exit_data:free()`                    free the exit_data
+`exit_data.raw -> cdata`              return cdata of exit_data
 ------------------------------------ -----------------------------------------
 
-### `exif.openfile(path) -> ExifData`
+### `exif.read(data) -> exit_data`
 
-Open a JPEG image and read EXIF data.
-`path` is a path to image location.
-Will return `false` if `path` is not a string, not valid path or no EXIF data was found.
-Return ExifData as an lua object. The cdata object stored in `ExifData.raw`.
+Read data and parse EXIF data from it.
+`data` is byte-data of file.
+Will return `false` if `data` is not a string, not valid path or no EXIF data was found.
+Return exit_data as an lua object. The cdata object stored in `exit_data.raw`.
 
-### `ExifData:GetTags() -> table`
+### `exit_data:get_tags() -> table`
 
-Return table of tags from ExifData.
-Internally calls a foreach for all ExifContent in `ExifData`, fixes them then calls a foreach for all ExifEntry in ExifContent, fixes them and converts tags names and values to printable strings.
+Return table of tags from exit_data.
+Internally calls a foreach for all ExifContent in `exit_data`, fixes them then calls a foreach for all ExifEntry in ExifContent, fixes them and converts tags names and values to printable strings.
 Fixing ExifContent and ExifEntry allows you to get at least some EXIF tags if JPEG was corrupted.
 
-### `ExifData:free()`
+### `exit_data:free()`
 
-Free the ExifData.
+Free the exit_data.
 
 ## Help needed
 
