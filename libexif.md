@@ -11,24 +11,23 @@ EXIF information from/to image files.
 
 ------------------------------------ -----------------------------------------
 `exif.C`                             the libexif ffi clib object/namespace
-`exif.read_file(path) -> exit_data`    open file and get EXIF information
-`exit_data:get_tags() -> table`        return table of written tags
-`exit_data:free()`                    free the exit_data
-`exit_data.raw -> cdata`              return cdata of exit_data
+`exif.read_file(path) -> exit_data`  read data and get EXIF information
+`exit_data:get_tags() -> table`      return table of written tags
+`exit_data:free()`                   free the exit_data
 ------------------------------------ -----------------------------------------
 
 ### `exif.read(data) -> exit_data`
 
 Read data and parse EXIF data from it.
 `data` is byte-data of file.
-Will return `false` if `data` is not a string, not valid path or no EXIF data was found.
-Return exit_data as an lua object. The cdata object stored in `exit_data.raw`.
+Will return `false` if `data` is not a string or no EXIF data was found.
+Return `exit_data` as an cdata object with lua metatable.
 
 ### `exit_data:get_tags() -> table`
 
-Return table of tags from exit_data.
+Return table of tags from `exit_data`.
 Internally calls a foreach for all ExifContent in `exit_data`, fixes them then calls a foreach for all ExifEntry in ExifContent, fixes them and converts tags names and values to printable strings.
-Fixing ExifContent and ExifEntry allows you to get at least some EXIF tags if JPEG was corrupted.
+Fixing ExifContent and ExifEntry allows you to get at least some EXIF tags if file was corrupted.
 
 ### `exit_data:free()`
 
