@@ -11,6 +11,7 @@ local exif = {
 
 local meta_exif_data = {}
 meta_exif_data.__index = meta_exif_data
+ffi.metatype("ExifData", meta_exif_data)
 
 function meta_exif_data:get_tags()
 	local tags = {}
@@ -48,7 +49,7 @@ end
 
 function exif.read(data)
 	if type(data) ~= "string" then return false end
-	local edata = ffi.metatype("ExifData", meta_exif_data)
+	local edata = ffi.new("ExifData*")
 	local loader = ffi.new("ExifLoader*")
 	loader = C.exif_loader_new()
 	local buf = ffi.cast("unsigned char*", data)
@@ -56,13 +57,9 @@ function exif.read(data)
 	edata = C.exif_loader_get_data(loader)
 	C.exif_loader_unref(loader)
 
-	if edata == ffi.NULL then
-		C.exif_data_free(edata)
-
+	if edata == nil then
 		return false
 	end
-
-	if not edata then return false end --This is not as "edata == nil" 
 
 	return edata
 end
